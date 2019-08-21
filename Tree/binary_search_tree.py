@@ -8,27 +8,31 @@ class Tree:
             self.left=None
             self.right=None
     
+    # Checks whether the tree is empty or not
     def is_empty(self):
         return (self.value==None)
 
+    # Returns inorder traversal of the tree(DFS)
     def inorder(self):
         if self.is_empty():
             return []
         else:
             return (self.left.inorder()+[self.value]+self.right.inorder())
 
+    # Returns preorder traversal of the tree(DFS)
     def preorder(self):
         if self.is_empty():
             return []
         else:
             return ([self.value]+self.left.preorder()+self.right.preorder())
-
+    # Returns postorder traversal of the tree (DFS)
     def postorder(self):
         if self.is_empty():
             return []
         else:
             return (self.left.postorder()+self.right.postorder()+[self.value])
 
+    # Returns level-order traversal of the tree (BFS)
     def levelorder(self):
         if self.is_empty():
             return []
@@ -45,6 +49,7 @@ class Tree:
                 queue.append(queue[0].right)
             del(queue[0])
     
+    # Asks for choice to choose different traversal options, and obliges the same
     def __str__(self):
         choice=int(input('enter 1 for inorder, 2 for preorder, 3 for postorder or 4 for level-order bst traversal: '))
         if choice==1:
@@ -60,7 +65,8 @@ class Tree:
             print('Level-order traversal : ',end='')
             return str(self.levelorder())
 
-    def find(self,v):
+    # Finds the element v recursively
+    def rec_find(self,v):
         if self.value==None:
             return False
         elif self.value==v:
@@ -101,7 +107,7 @@ class Tree:
             # Goto right sub-tree
             self.right.insert(v)
     
-
+    # deletes the value v from the tree
     def delete(self,v):
         if self.is_empty():
             return
@@ -119,15 +125,32 @@ class Tree:
                 self.value=self.left.maxval()
                 self.left.delete(self.left.maxval())
 
+    # Checks whether the node in question is a leaf node or not
     def is_leaf(self):
         return (self.left.is_empty() and self.right.is_empty())
     
+    # Make the node empty
     def make_empty(self):
         self.value=None
         self.left=None
         self.right=None
     
+    # Copy the contents of the right child of the current node into the current node
     def copy_right(self):
         self.value=self.right.value
         self.left=self.right.left
         self.right=self.right.right
+
+
+    # Iterative implementation of find function
+    def iter_find(self,v):
+        while(self.value!=v and not self.is_empty()):
+            if v<self.value:
+                self=self.left
+            else:
+                self=self.right
+        
+        if v==self.value:
+            return True
+        else:
+            return False
