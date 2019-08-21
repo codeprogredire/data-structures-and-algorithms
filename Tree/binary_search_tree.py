@@ -28,6 +28,22 @@ class Tree:
             return []
         else:
             return (self.left.postorder()+self.right.postorder()+[self.value])
+
+    def levelorder(self):
+        if self.is_empty():
+            return []
+        
+        queue=[]
+
+        queue.append(self)
+
+        while(len(queue)>=1):
+            print(queue[0].value,end=' ')
+            if not queue[0].left.is_empty():
+                queue.append(queue[0].left)
+            if not queue[0].right.is_empty():
+                queue.append(queue[0].right)
+            del(queue[0])
     
     def __str__(self):
         choice=int(input('enter 1 for inorder, 2 for preorder, 3 for postorder or 4 for level-order bst traversal: '))
@@ -42,7 +58,7 @@ class Tree:
             return (str(self.postorder()))
         else:
             print('Level-order traversal : ',end='')
-            return ('Work is in progress. Please try some other traversals. Level-order traversal will be updated soon.')
+            return str(self.levelorder())
 
     def find(self,v):
         if self.value==None:
