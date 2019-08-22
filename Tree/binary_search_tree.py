@@ -154,3 +154,24 @@ class Tree:
             return True
         else:
             return False
+
+    # Returns lowest common ancestors between n1 and n2
+    def lca(self,n1,n2):
+        walk_2_n1=self.path(n1)
+        walk_2_n2=self.path(n2)
+        common_nodes=set(walk_2_n1).intersection(set(walk_2_n2))
+        lowest_common_ancestor=[n1 for n1 in walk_2_n1 for n2 in walk_2_n2 if n1==n2][-1]
+        return lowest_common_ancestor
+
+    # Returns the path from root to node v
+    def path(self,v):
+        walk=[]
+        while(self.value!=v):
+            walk.append(self.value)
+            if v<self.value:
+                self=self.left
+            else:
+                self=self.right
+        walk.append(self.value)
+
+        return walk
