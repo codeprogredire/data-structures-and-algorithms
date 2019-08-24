@@ -175,3 +175,20 @@ class Tree:
         walk.append(self.value)
 
         return walk
+
+    # Second approach to find Lowest common ancestor
+    def lca2(self,n1,n2):
+        if not (self.iter_find(n1) and self.iter_find(n2)):
+            print('{} or {} is not present. Please enter correct values.'.format(n1,n2))
+            return
+        n1=min(n1,n2)
+        n2=max(n1,n2)
+        while(not self.is_empty()):
+            if (self.value>n1 and self.value>n2):
+                self=self.left
+            elif (self.value<n1 and self.value<n2):
+                self=self.right
+            else:
+                break
+
+        return self.value
