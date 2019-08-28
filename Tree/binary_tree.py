@@ -101,3 +101,46 @@ class Tree:
         res2=self.right.find(v)
 
         return res1 or res2
+    
+    def replace(self,v,new_data):
+        if self.value==None:
+            return
+        if self.value==v:
+            self.value=new_data
+            return
+        res1=self.left.replace(v,new_data)
+        res2=self.right.replace(v,new_data)
+
+        return res1 or res2
+
+    def delete(self,v):
+        preorder_traversal=self.preorder()
+        right_most_value=preorder_traversal[-1]
+        self.replace(right_most_value,None)
+        self.replace(v,right_most_value)
+
+    # Returns height : height = number of nodes in the longest path from root to a leaf 
+    def height(self):
+        if self.is_empty():
+            return 0
+        else:
+            h1=self.left.height()
+            h2=self.right.height()
+            h=1+max(h1,h2)
+            return h
+
+    # Returns diameter : diameter = number of nodes in the longest path between any two nodes.
+    # It may or may not include the root node. 
+    def diameter(self):
+        if self.is_empty():
+            return 0
+        if self.left.is_empty() and self.right.is_empty():
+            return 1
+        
+        d1=self.left.diameter()
+        d2=self.right.diameter()
+        d3=self.left.height()+1+self.right.height()
+
+        d=max(d1,d2,d3)
+
+        return d
