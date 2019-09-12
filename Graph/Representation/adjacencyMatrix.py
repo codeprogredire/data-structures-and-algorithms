@@ -40,4 +40,3 @@ class Graph:
             for j in range(self.numVertex):
                 print(self.adjMatrix[i][j],end=' ')
             print()
-
