@@ -17,6 +17,7 @@ class LinkedList:
             temp = Node(data)
             temp.next = self.head
             self.head = temp
+        self.length+=1
     
     # Insertion at nth podition means, that after insertion the node comes at n-th place
     def insert_at_middle(self,data,pos):
@@ -31,6 +32,7 @@ class LinkedList:
             new_node = Node(data)
             new_node.next = temp.next
             temp.next = new_node
+        self.length+=1
     
     def insert_at_end(self,data):
         if self.head == None:
@@ -41,6 +43,7 @@ class LinkedList:
                 temp = temp.next
             
             temp.next = Node(data)
+        self.length+=1
 
     def print_list(self):
         temp = self.head
@@ -54,31 +57,42 @@ class LinkedList:
             return
         else:
             self.head = self.head.next
+        self.length-=1
     
     def delete_from_end(self):
         if self.head == None:
             return
         else:
-            temp = self.head
-            while temp.next.next!=None:
-                temp=temp.next
-            temp.next=None
+            previousnode=self.head
+            currentnode=self.head
+
+            while currentnode.next!=None:
+                previousnode=currentnode
+                currentnode=currentnode.next
+            previousnode=None
+            self.length-=1
     
-    def delete_from_middle(self,pos):
-        if self.head == None:
+    def delete_from_position(self,pos):
+        count=0
+        currentnode=self.head
+        previousnode=self.head
+
+        if pos > self.length or pos<0:
             return
-        elif pos==0:
-            self.delete_from_beginning()
         else:
-            count = 0
-            temp = self.head
-            while count<=pos-2 and temp!=None:
-                temp=temp.next
+            while currentnode.next!=None or count<pos:
                 count+=1
-            if temp==None:
-                return
-            else:
-                temp.next=temp.next.next
+                if count==pos:
+                    previousnode.next=currentnode.next
+                    self.length-=1
+                    return
+                else:
+                    previousnode=currentnode
+                    currentnode=currentnode.next
+    
+    # Delete Linked List
+    def clear(self):
+        self.head=None
 
 
 
@@ -101,14 +115,14 @@ while True:
         llist.print_list()
     else:
         ch = int(input('Enter 1 to delete from beginning. Enter 2 to delete from middle.Enter 3 to delete from end : '))
-        if choice==1:
+        if ch==1:
             llist.delete_from_beginning()
             llist.print_list()
-        elif choice==2:
+        elif ch==2:
             pos = int(input('Enter position : '))
             llist.delete_from_middle(pos)
             llist.print_list()
-        elif choice==3:
+        elif ch==3:
             llist.delete_from_end()
             llist.print_list()
 
