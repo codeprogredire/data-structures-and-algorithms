@@ -10,6 +10,15 @@ class LinkedList:
     def is_empty(self):
         return self.head == None
 
+    def list_length(self):
+        current = self.head
+        count = 0
+        while current!=None:
+            count+=1
+            current=current.next
+        return count
+
+
     def insert_at_beginning(self,data):
         if self.head == None:
             self.head = Node(data)
