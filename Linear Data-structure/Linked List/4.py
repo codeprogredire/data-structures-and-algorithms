@@ -1,65 +1,25 @@
 '''
-Link: C:\Users\Kislay\Documents\GitHub\data-structures-and-algorithms\Linear Data-structure\Linked List>
+Link: https://leetcode.com/explore/learn/card/linked-list/214/two-pointer-technique/1212
 '''
 
-#!/bin/python3
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-import math
-import os
-import random
-import re
-import sys
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        slow=head
+        fast=head
 
-class SinglyLinkedListNode:
-    def __init__(self, node_data):
-        self.data = node_data
-        self.next = None
-
-class SinglyLinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
-
-    def insert_node(self, node_data):
-        node = SinglyLinkedListNode(node_data)
-
-        if not self.head:
-            self.head = node
-        else:
-            self.tail.next = node
-
-
-        self.tail = node
-
-def print_singly_linked_list(node, sep, fptr):
-    while node:
-        fptr.write(str(node.data))
-
-        node = node.next
-
-        if node:
-            fptr.write(sep)
-
-# Complete the has_cycle function below.
-
-#
-# For your reference:
-#
-# SinglyLinkedListNode:
-#     int data
-#     SinglyLinkedListNode next
-#
-#
-def has_cycle(head):
-    hashmap={}
-    slow=head
-    fast=head
-    while fast and fast.next:
-        hashmap[slow]=True
-        if fast in hashmap and slow!=head:
-            return True
-        else:
+        while fast and fast.next:
             slow=slow.next
             fast=fast.next.next
-
-    return False
+            
+            if fast==slow:
+                return True
+            
+        return False
+        
+        
