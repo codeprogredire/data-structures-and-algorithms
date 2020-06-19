@@ -5,22 +5,17 @@ Stack implementation using Dynamic Array.
 
 class Stack:
     def __init__(self,limit=3):
-        self.stk = limit*[]
+        self.stk = []
         self.limit = limit
 
     def is_empty(self):
         return len(self.stk)
 
     def push(self,item):
-        if len(self.stk)==0:
-            self.resize()
+        if len(self.stk)==self.limit:
+            self.limit*=2
         self.stk.append(item)
         print('Stack after Push operation : {}'.format(self.stk))
-
-    def resize(self):
-        newstk = list(self.stk)
-        self.limit = 2*self.limit
-        self.stk = newstk
     
     def pop(self):
         if len(self.stk)==0:
