@@ -129,6 +129,22 @@ class Tree:
             h=1+max(h1,h2)
             return h
 
+    # Delete node with value v
+    def delete(self,v):
+        queue=[self.root]
+        last=self.root
+        while len(queue):
+            temp=queue.pop(0)
+            last=temp
+            if temp.val==v:
+                dNode=temp
+            if temp.left:
+                queue.append(temp.left)
+            if temp.right:
+                queue.append(temp.right)
+        dNode,last=last,dNode
+        last=None
+
     # Returns diameter : diameter = number of nodes in the longest path between any two nodes.
     # It may or may not include the root node. 
     def diameter(self):
